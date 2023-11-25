@@ -1,0 +1,149 @@
+I.The given Python program calculates the square of a large 20-digit integer number using a strategy called "Divide and Conquer". This method is a powerful algorithmic design technique that solves a problem by breaking it into smaller subproblems and using the solutions of those subproblems to solve the original problem 2, 3.
+Here's a simple step-by-step explanation of how the provided Python code works:
+	1	The square(x, y) function is defined to compute the square of a given number. It takes two arguments x and y, which are the large integers to be squared.
+	2	If x or y is less than 10, the function simply returns the product of x and y. This is the base case of the divide and conquer strategy, where the computation is simple enough to be solved directly 2.
+	3	The function then converts x and y into strings and calculates their lengths. The purpose of this is to split the numbers into smaller parts.
+	4	The numbers are divided into high (xh, yh) and low (xl, yl) parts. This is the "divide" part of the divide and conquer strategy.
+	5	The function then recursively calls itself to compute the squares of the high parts (z2), the sum of the high and low parts (z1), and the low parts (z0). This is the "conquer" part of the divide and conquer strategy, where the problem is broken down into smaller, easier-to-solve problems.
+	6	The results of these computations are then combined and returned as the square of the original number. This is done by multiplying the square of the high part by 10 raised to the power of twice the half length (to adjust the position of the digits), adding the square of the sum of the high and low parts (adjusted by the half length), and adding the square of the low part.
+	7	The program then asks the user to input a 20-digit number, calculates its square using the square() function, and prints the result
+
+II. 
+The problem statement describes a situation where we have `n` tasks to be scheduled on a single processor. Each task has a given deadline (`d1, d2, ..., dn`) and a profit (`p1, p2, ..., pn`). The tasks can be executed in any order, one task at a time, and each task takes 1 unit of time to execute. The goal is to design a greedy algorithm to find a schedule or sequence of jobs that gives the maximum profit.
+
+Here's how to solve this problem theoretically:
+
+1. **Sort the tasks based on their profits**: First, we sort the tasks in decreasing order of their profits. This is because we want to prioritize tasks that give us the most profit.
+
+2. **Create a schedule**: Next, we create an empty schedule that will eventually contain the sequence of tasks that gives the maximum profit. This schedule is represented as a list of size equal to the maximum deadline among all tasks.
+
+3. **Fill in the schedule**: We then iterate through the sorted list of tasks. For each task, we find the latest free slot within its deadline and schedule the task at that time. If no free slot is found within the deadline, we skip the task. This ensures that we don't schedule any task beyond its deadline.
+
+4. **Calculate the total profit**: Finally, we calculate the total profit by summing up the profits of all the tasks in the schedule.
+
+Now, let's see how this is done in the provided Python code:
+
+1. The code starts by taking user input for the number of tasks `n`.
+
+2. It then takes user inputs for each task's profit and deadline, and stores them in the `profits` and `deadlines` lists respectively.
+
+3. The `jobs` list is used to store the task numbers (from 1 to `n`).
+
+4. The `job_info` list combines the profits, deadlines, and job numbers. This list is then sorted in descending order of profits.
+
+5. The `schedule` list is created with a size equal to the maximum deadline. This list will hold the sequence of tasks.
+
+6. The variable `tprofit` is initialized to keep track of the total profit.
+
+7. The code then iterates through the `job_info` list. For each task, it finds the latest free slot within the task's deadline in the `schedule` list. If a free slot is found, the task is added to the `schedule` at that slot and its profit is added to `tprofit`.
+
+8. Finally, the code prints out the `schedule` and the total profit `tprofit`.
+
+The Greedy algorithm is used here because it makes the locally optimal choice at each step with the hope that these local choices will lead to a global optimum. In this case, the locally optimal choice is to choose the task with the highest profit that can be scheduled within its deadline
+
+III.
+The problem statement presents a scenario where you have several offices and you want to connect them using phone lines. The cost of connecting different pairs of offices varies. The goal is to find a set of phone lines that connects all the offices with a minimum total cost. This is essentially a shortest path problem and can be solved using the Floyd-Warshall algorithm.
+
+In simple terms, the Floyd-Warshall algorithm is used to find the shortest paths between all pairs of vertices in a weighted graph. Here's a step-by-step explanation of how to approach this problem:
+
+1. First, you need to model your problem as a graph. Each office can be represented as a vertex and the phone line connecting two offices can be represented as an edge. The cost of leasing a phone line can be represented as the weight of the edge.
+
+2. Then, initialize a matrix known as the cost matrix. The cost matrix is a 2D matrix where the cell at the ith row and jth column represents the cost of the direct line between office i and office j. If there is no direct line between two offices, the cost is set to infinity.
+
+3. The Floyd-Warshall algorithm then iteratively updates the cost matrix. For each pair of offices (i, j), it checks if there is a cheaper way to connect office i and office j through an intermediate office k. If there is, it updates the cost in the cost matrix.
+
+4. This process is repeated for all possible pairs of offices and all possible intermediate offices. At the end, the cost matrix will contain the minimum cost to connect each pair of offices.
+
+5. Finally, you can use the cost matrix to plan the phone line connections. The minimum total cost to connect all offices will be the sum of the costs of the chosen lines.
+
+Now, let's look at how this is implemented in the provided code:
+
+1. The code starts by asking for the number of offices (N) and initializing the cost matrix. It uses `float('inf')` to represent infinity.
+
+2. It then asks for the cost matrix from the user. The user inputs the cost matrix row by row. If a cost is inputted as 'inf', it is converted to `float('inf')`.
+
+3. The Floyd-Warshall algorithm is then applied to the cost matrix. For each pair of offices (i, j), it checks all possible intermediate offices (k) to see if connecting office i and office j through office k is cheaper than the current cost in the cost matrix. If it is, the cost matrix is updated.
+
+4. The updated cost matrix at each step is printed out for the user to see the progress of the algorithm.
+
+5. Finally, the code prints out the final cost matrix which contains the minimum cost to connect each pair of offices.
+
+This implementation of the Floyd-Warshall algorithm effectively solves the phone line leasing problem by finding the minimum cost to connect all offices [Source 0](https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/), [Source 2](https://www.programiz.com/dsa/floyd-warshall-algorithm), [Source 7](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm).
+
+
+IV.
+To solve this problem, we can use Dijkstra's algorithm, which is a common algorithm used for finding the shortest paths in a graph from a given source node. Here's a step-by-step explanation:
+
+1. First, we create a graph representation where each node represents a network node and each edge represents the time taken for a signal to travel between two nodes. The edge weights are given as (ui, vi, wi), where "ui" and "vi" are the nodes and "wi" is the time taken for a signal to travel from "ui" to "vi"[Source 6](https://stackoverflow.com/questions/57944460/dijkstras-algorithm-implementation-in-python-how-does-it-work).
+
+2. We initialize a distance array with a size equal to the number of nodes. Each element in the array is initially set to infinity, except for the starting node 'K', which is set to 0. This array will keep track of the shortest distance from the starting node to every other node[Source 8](https://www.section.io/engineering-education/dijkstra-python/).
+
+3. We create a priority queue, which will store nodes along with their current shortest distance from the starting node. We start by adding the starting node to the queue with a distance of 0[Source 8](https://www.section.io/engineering-education/dijkstra-python/).
+
+4. We then enter a loop that continues until the priority queue is empty. In each iteration of the loop, we:
+
+    - Remove the node with the smallest distance from the queue.
+    - For each neighbor of this node, we calculate the distance through the current node. If this distance is less than the current shortest distance to the neighbor, we update the shortest distance and add the neighbor to the priority queue with the new distance[Source 8](https://www.section.io/engineering-education/dijkstra-python/).
+
+5. Finally, we return the maximum value in the distance array. If there is still an infinity value in the array, it means that not all nodes can receive the signal, so we return -1[Source 14](https://www.youtube.com/watch?v=rFLlqZua-Ro).
+
+In the provided code, the function `netdelay` implements these steps. It takes as input a list of edges and the number of vertices and the starting node. The function first initializes the graph representation and the distance array. It then performs the Dijkstra's algorithm by continuously extracting the node with the smallest distance from the priority queue and updating the distances of its neighbors. If it's impossible for all nodes to receive the signal, the function returns -1. Otherwise, it returns the maximum distance[Source 12](https://github.com/siqi-ontheway/Network-Delay-Time).
+
+V.
+The Knight's Tour problem can be solved by using a technique called backtracking. The problem is essentially a path-finding problem on a chessboard, where the knight must visit all squares of the board exactly once.
+
+Here's how you can solve it in plain English:
+
+1. Start by placing the knight on any square of the chessboard.
+2. Next, you need to move to an unvisited square that can be reached from the current position of the knight. A knight can move two squares horizontally and one square vertically, or two squares vertically and one square horizontally.
+3. If such a move is not possible, then backtrack to the previous position and choose a different unvisited square.
+4. Repeat this process until all squares on the board have been visited. If there are no more unvisited squares and the knight has not visited all squares, then no solution exists for the input configuration. 
+
+Now, let's see how this is implemented in the code:
+
+1. The chess board is represented as a 2D array `board` with size `NxN`. The initial values are all `-1`, indicating that no squares have been visited yet.
+
+2. The function `issafe()` checks if a move is valid. It takes the board and the next position `(x, y)` as input. It checks if the x and y coordinates are within the board's boundaries and if the square at that position has not been visited yet.
+
+3. The `print_board()` function is used to print the current state of the board.
+
+4. The `solvKTUtil()` function is the main function that implements the backtracking algorithm. It takes the board, the current position `(x,y)`, the arrays `mov_x` and `mov_y` that represent the 8 possible moves of the knight, and the `pos` which represents the current number of squares visited. It checks if all squares have been visited, if so, it returns `True`. If not, it iterates over all possible moves, checks if the move is safe, and then recursively calls itself. If a call returns `True`, it means a solution has been found, so it returns `True`. If a call returns `False`, it means that the current move leads to no solution, so it undoes the move (backtracks) by marking the square as unvisited again and tries the next move.
+
+5. The `solveKT()` function sets up the initial state of the problem. It defines the possible moves of the knight, sets the initial position of the knight, and calls `solvKTUtil()`. If a solution exists, it prints the board, otherwise, it prints "solution does not exist".
+
+6. Finally, `solveKT()` is called to start the program [Source 0](https://www.geeksforgeeks.org/the-knights-tour-problem/), [Source 1](https://www.codesdope.com/course/algorithms-knights-tour-problem/), [Source 14](https://www.codespeedy.com/the-knights-tour-problem-in-python/).
+
+This code uses backtracking, which is a brute force method. It's not the most efficient solution for larger boards, as the time complexity is O(8^N^2), where N is the side length of the board. This is because in the worst case, the algorithm may have to try all possible sequences of moves. However, the Knight's Tour problem can also be solved using Warnsdorff's rule, which is a heuristic method that results in a more efficient solution [Source 3](https://www.geeksforgeeks.org/warnsdorffs-algorithm-knights-tour-problem/).
+
+VI.
+The problem at hand is a classic example of an assignment problem where we need to assign students to clubs in such a way that the total cost is minimized. The cost can vary depending on the student-club assignment.
+
+## Theoretical Approach
+
+Theoretically, the problem can be solved using the branch and bound approach. Here's how it works in plain English:
+
+1. We start with all possible assignments of students to clubs. Each potential assignment is considered as a 'node'. 
+
+2. We then calculate the cost for each of these assignments. The cost for a node is the total cost of assigning the students as per that node's configuration.
+
+3. We then select the node with the minimum cost and explore further assignments (branches) that can be made from this node (i.e., swapping students between clubs). 
+
+4. We 'bound' our search by ignoring nodes that have a higher cost than the current minimum cost. This is because, even if we further explore these nodes, we cannot get a better (lower cost) solution than the current minimum.
+
+5. We continue this process of branching and bounding until we have explored all possible assignments. The node with the minimum cost at the end of this process gives us our optimal assignment of students to clubs.
+
+## Coding Approach
+
+The provided Python code implements the theoretical approach described above. Here's how it works:
+
+1. We start by defining a Python class `Node` where each object of this class represents a potential assignment of students to clubs. Each node has properties like `student_id`, `club_id`, `parent` (the node from which this node was branched), `path_cost` (the cost of the assignment represented by this node), and `assigned` (a list indicating which clubs have been assigned).
+
+2. The function `calculate_cost` calculates the cost of a node by considering the assignment of the remaining students.
+
+3. The function `find_min_cost` uses a priority queue to store the nodes, with the node having the least cost at the front. It then dequeues the node with the minimum cost, explores further nodes (branches) from this node, and enqueues these new nodes into the priority queue. The function continues this process until the queue is empty. At the end of this process, the node with the minimum cost is our optimal assignment.
+
+4. The function `print_assignments` prints the optimal assignment of students to clubs.
+
+This approach ensures that we find the optimal assignment of students to clubs that minimizes the total cost.
+
+References: [Source 0](https://www.geeksforgeeks.org/job-assignment-problem-using-branch-and-bound/), [Source 1](https://www.baeldung.com/cs/branch-and-bound), [Source 6](https://www.geeksforgeeks.org/branch-and-bound-algorithm/), [Source 10](https://www.geeksforgeeks.org/introduction-to-branch-and-bound-data-structures-and-algorithms-tutorial/)
